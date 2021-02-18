@@ -18,7 +18,7 @@ class PdfDir(object):
 
         for itemName in itemNameList:
 
-            if itemName == "__pycache__" or itemName == "images":
+            if itemName == "__pycache__" or itemName == "images" or itemName == ".git":
                 continue
             
             absItemPath = os.path.join(self.currPathName, itemName)
