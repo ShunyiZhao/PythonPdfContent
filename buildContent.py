@@ -41,4 +41,4 @@ if __name__ == "__main__":
         with open("content.md", 'w', encoding='utf-8') as md:
             md.write(mdIterContent)
 
-        pypandoc.convert_file("content.md", 'pdf', format="md", outputfile="content.pdf")
+        pypandoc.convert_file("content.md", 'pdf', format="md", outputfile="content.pdf", extra_args=['-V', 'geometry:margin=1.5cm'])
