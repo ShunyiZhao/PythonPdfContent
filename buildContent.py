@@ -1,6 +1,7 @@
 import os
 import sys
 import markdown2
+import pypandoc
 from utils import isPdf
 from PdfDir import PdfDir
 
@@ -33,3 +34,11 @@ if __name__ == "__main__":
         htmlObj = markdown2.markdown(mdIterContent)
         with open("content.html", 'w', encoding='utf-8') as htmlContent:
             htmlContent.write(htmlObj)
+
+    if sys.argv[1] == "buildpdf":
+        currDir = PdfDir(ROOT_PATH)
+        mdIterContent = currDir.buildIterMdContent()
+        with open("content.md", 'w', encoding='utf-8') as md:
+            md.write(mdIterContent)
+
+        pypandoc.convert_file("content.md", 'pdf', format="md", outputfile="content.pdf")

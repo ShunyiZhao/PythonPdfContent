@@ -1,4 +1,6 @@
 pdfFolder/
 content.md
 content.html
+content.pdf
 __pycache__
+*.pyc

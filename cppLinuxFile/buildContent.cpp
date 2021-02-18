@@ -12,7 +12,7 @@ int main(int argc, char **argv){
         exit(1);
     }
 
-    system("ls");
+    system("ls ../> name.txt");
 
     return 0;
 }
