@@ -16,13 +16,7 @@ if __name__ == "__main__":
     if sys.argv[1] == "testOri":
         currDir = PdfDir(ROOT_PATH)
         currDir.printCurrPdfName()
-        print("*********************************")
-        print(currDir.getCurrDirName())
-        print("*********************************")
-        currDir.printCurrDirObjList()
-        print("*********************************")
-        print(currDir.buildIterContent())
-        print("*********************************")
+        
         mdIterContent = currDir.buildIterMdContent()
         #print(mdIterContent)
         with open("content.md", 'w', encoding='utf-8') as md:
