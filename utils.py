@@ -2,14 +2,29 @@ import os
 import sys
 
 def isPdf(fileName):
-    
     pathSplited = os.path.split(fileName)
     name = pathSplited[-1]
     nameStrs = name.split(".")
     strType = nameStrs[-1]
 
-    if strType == "pdf" or strType == "PDF":
+    return cmpType(strType, "pdf") or cmpType(strType, "PDF")
+
+def cmpType(strFileType, strTargetType):
+    if strFileType == strTargetType:
         return True
+    return False
+
+def isTargetType(strFileName, strTargetType):
+    strNameSplited = os.path.split(strFileName)
+    strName = strNameSplited[-1]
+    strType = strName.split(".")[-1]
+
+    return cmpType(strType, strTargetType)
+
+def isTargetTypeList(strFileName, listTargetType):
+    for strTargetType in listTargetType:
+        if isTargetType(strFileName, strTargetType):
+            return True
 
     return False
 
