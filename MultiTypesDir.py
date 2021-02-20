@@ -1,6 +1,7 @@
 import os
 
 from utils import isTargetType
+from utils import isTargetTypeList
 
 class MultiTypesDir(object):
 
@@ -14,7 +15,7 @@ class MultiTypesDir(object):
         self.dirLevel = dirLevel
         self.typeList = typeList
         self.dirObjList = []
-        self.pdfList = []
+        self.fileNameList = []
 
         itemNameList = sorted(os.listdir(currPathName))
 
@@ -27,8 +28,8 @@ class MultiTypesDir(object):
 
             if os.path.isdir(absItemPath) is True:
                 self.dirObjList.append(MultiTypesDir(absItemPath, dirLevel=(self.dirLevel+1), typeList=self.typeList))
-            elif isPdf(absItemPath):
-                self.pdfList.append(absItemPath)
+            elif isTargetTypeList(absItemPath, self.typeList):
+                self.fileNameList.append(absItemPath)
 
     def getCurrDirName(self):
         '''
@@ -40,7 +41,7 @@ class MultiTypesDir(object):
         '''
         print pdf name in curr dir
         '''
-        for name in self.pdfList:
+        for name in self.fileNameList:
             print(name)
 
     def printCurrDirObjList(self):
@@ -62,8 +63,8 @@ class MultiTypesDir(object):
         strResult += currName + "\n"
 
         # add the pdf names
-        for pdfName in self.pdfList:
-            name = os.path.split(pdfName)[-1]
+        for fileName in self.fileNameList:
+            name = os.path.split(fileName)[-1]
             name = name.replace("[", "")
             name = name.replace("]", "")
             strTem = ""
@@ -71,7 +72,7 @@ class MultiTypesDir(object):
                 strTem += " "
             strTem += "* "
             strTem += '[' + name + ']'
-            outputName = pdfName.replace('\\', '/')
+            outputName = fileName.replace('\\', '/')
             #outputName = pdfName.replace(' ', '\ ')
             strTem += '(' + outputName + ')'
             strTem += '\n'

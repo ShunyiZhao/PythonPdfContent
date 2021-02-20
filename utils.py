@@ -12,6 +12,7 @@ def isPdf(fileName):
 def cmpType(strFileType, strTargetType):
     if strFileType == strTargetType:
         return True
+    
     return False
 
 def isTargetType(strFileName, strTargetType):
