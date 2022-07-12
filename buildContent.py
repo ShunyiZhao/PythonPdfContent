@@ -2,9 +2,9 @@ import os
 import sys
 import markdown2
 import pypandoc
-from utils import isPdf
-from PdfDir import PdfDir
-from MultiTypesDir import MultiTypesDir
+from utils.utils import isPdf
+from pyContents.PdfDir import PdfDir
+from pyContents.MultiTypesDir import MultiTypesDir
 
 ROOT_PATH = os.path.dirname(os.path.abspath(__file__))
 
@@ -20,23 +20,27 @@ if __name__ == "__main__":
         
         mdIterContent = currDir.buildIterMdContent()
         #print(mdIterContent)
-        with open("content.md", 'w', encoding='utf-8') as md:
+        with open(os.path.join("contents", "content.md"), 'w', encoding='utf-8') as md:
             md.write(mdIterContent)
 
     if len(sys.argv) == 2 and sys.argv[1] == "build":
         currDir = PdfDir(ROOT_PATH)
         mdIterContent = currDir.buildIterMdContent()
         htmlObj = markdown2.markdown(mdIterContent)
-        with open("content.html", 'w', encoding='utf-8') as htmlContent:
+        with open(os.path.join("contents", "content.html"), 'w', encoding='utf-8') as htmlContent:
             htmlContent.write(htmlObj)
 
     if len(sys.argv) == 2 and sys.argv[1] == "buildpdf":
         currDir = PdfDir(ROOT_PATH)
         mdIterContent = currDir.buildIterMdContent()
-        with open("content.md", 'w', encoding='utf-8') as md:
+        with open(os.path.join("contents", "content.md"), 'w', encoding='utf-8') as md:
             md.write(mdIterContent)
 
-        pypandoc.convert_file("content.md", 'pdf', format="md", outputfile="content.pdf", extra_args=['-V', 'geometry:margin=1.5cm'])
+        pypandoc.convert_file(os.path.join("contents", "content.md"), 
+                              'pdf', 
+                              format="md", 
+                              outputfile=os.path.join("contents", "content.pdf"), 
+                              extra_args=['-V', 'geometry:margin=1.5cm'])
 
     if len(sys.argv) > 2 and sys.argv[1] == "buildMultiContent":
         typeList = sys.argv[2:]
@@ -45,7 +49,11 @@ if __name__ == "__main__":
         currDir = MultiTypesDir(ROOT_PATH, dirLevel=0, typeList=typeList)
         mdIterContent = currDir.buildIterMdContent()
         
-        with open("content.md", 'w', encoding='utf-8') as md:
+        with open(os.path.join("contents", "content.md"), 'w', encoding='utf-8') as md:
             md.write(mdIterContent)
 
-        pypandoc.convert_file("content.md", 'pdf', format="md", outputfile="content.pdf", extra_args=['-V', 'geometry:margin=1.5cm'])
+        pypandoc.convert_file(os.path.join("contents", "content.md"), 
+                                           'pdf', 
+                                           format="md", 
+                                           outputfile="content.pdf", 
+                                           extra_args=['-V', 'geometry:margin=1.5cm'])
